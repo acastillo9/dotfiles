@@ -1,4 +1,6 @@
-" NERDTree
+"""""" NERDTree """"""
+
+let NERDTreeShowHidden=1
 nnoremap <C-t> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-b> :NERDTreeToggle<CR>
@@ -12,5 +14,5 @@ autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | e
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
-" Lightline
+"""""" Lightline """"""
 
