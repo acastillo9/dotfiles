@@ -21,6 +21,7 @@ return {
           formatters_by_ft = {},
           format_on_save = true,
         })
+        schema:import("copilot_enabled", true)
       end,
     })
 

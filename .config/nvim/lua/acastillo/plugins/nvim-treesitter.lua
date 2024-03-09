@@ -38,6 +38,7 @@ return {
         "vim",
         "vue",
         "yaml",
+        "regex",
       },
       incremental_selection = {
         enable = true,
