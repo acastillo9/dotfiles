@@ -18,10 +18,6 @@ return {
           builtins = { "stylua", "prettier" },
           extras = {},
         },
-        code_actions = {
-          builtins = {},
-          extras = { "eslint_d" },
-        },
       },
       format_on_save = false,
     })
