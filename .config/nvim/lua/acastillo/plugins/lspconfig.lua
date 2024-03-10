@@ -14,18 +14,8 @@ return {
     local neoconf = require("neoconf")
     neoconf.setup()
 
-    -- add Conform configuration to Neoconf file
-    require("neoconf.plugins").register({
-      on_schema = function(schema)
-        schema:import("conform", {
-          formatters_by_ft = {},
-          format_on_save = true,
-        })
-        schema:import("copilot_enabled", true)
-      end,
-    })
-
     local opts = { noremap = true, silent = true }
+
     local on_attach = function(_, bufnr)
       opts.buffer = bufnr
 
