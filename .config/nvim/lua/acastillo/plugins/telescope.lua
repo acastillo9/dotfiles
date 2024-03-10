@@ -30,7 +30,7 @@ return {
     keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "Find history" })
     keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep<cr>", { desc = "Find words" })
     keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find word under cursor" })
-    keymap.set("n", "<leader>gt", "<cmd>Telescope git_status<cr>", { desc = "Git status" })
+    keymap.set("n", "<leader>fg", "<cmd>Telescope git_status<cr>", { desc = "Git status" })
     keymap.set(
       "n",
       "<leader>fb",
