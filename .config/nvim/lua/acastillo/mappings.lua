@@ -2,6 +2,15 @@ local keymap = vim.keymap
 
 vim.g.mapleader = " "
 
+-- Do things without affecting the registers
+keymap.set("n", "x", '"_x')
+keymap.set("n", "<Leader>P", '"0P')
+keymap.set("v", "<Leader>P", '"0p')
+keymap.set("n", "<Leader>C", '"_C')
+keymap.set("v", "<Leader>C", '"_C')
+keymap.set("n", "<Leader>D", '"_D')
+keymap.set("v", "<Leader>D", '"_D')
+
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Move cursor down" })
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move cursor up" })
 keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
