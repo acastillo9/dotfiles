@@ -15,7 +15,7 @@ return {
           extras = { "eslint_d" },
         },
         formatters = {
-          builtins = { "stylua", "prettier" },
+          builtins = { "stylua", "prettierd" },
           extras = {},
         },
       },
@@ -30,7 +30,13 @@ return {
       for _, source in ipairs(settings.builtins) do
         local built_in_source = null_ls.builtins[null_ls_category][source]
         if built_in_source then
-          table.insert(sources, built_in_source)
+          local new_built_in_source = built_in_source
+          if built_in_source.name == "prettierd" then
+            new_built_in_source = built_in_source.with({
+              extra_filetypes = { "astro" },
+            })
+          end
+          table.insert(sources, new_built_in_source)
         end
       end
 
@@ -56,7 +62,7 @@ return {
               vim.lsp.buf.format({
                 filter = function(client)
                   -- only use null-ls for formatting instead of lsp server
-                  return client.name == "null-ls"
+                  return client.name == "null-ls" or client.name == "astro"
                 end,
                 bufnr = bufnr,
               })

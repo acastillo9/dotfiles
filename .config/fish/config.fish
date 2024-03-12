@@ -26,3 +26,7 @@ set -gx JAVA_HOME (brew --prefix java)
 ### Python
 set -gx PYENV_ROOT (pyenv root)
 set -gx PATH $PYENV_ROOT/shims $PATH
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

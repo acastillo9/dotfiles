@@ -155,6 +155,14 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       },
+      astro = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      },
+      vuels = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      },
     }
 
     for server, config in pairs(servers) do

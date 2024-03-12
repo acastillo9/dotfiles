@@ -19,6 +19,7 @@ return {
         enable = true,
       },
       ensure_installed = {
+        "astro",
         "bash",
         "css",
         "dockerfile",
