@@ -143,6 +143,24 @@ return {
       tsserver = {
         capabilities = capabilities,
         on_attach = on_attach,
+        init_options = {
+          plugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = "/Users/andrescastillo/.local/share/nvm/v20.11.1/lib/node_modules/@vue/typescript-plugin",
+              languages = { "javascript", "typescript", "vue" },
+            },
+          },
+        },
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+          "vue",
+        },
       },
       volar = {
         capabilities = capabilities,
@@ -156,10 +174,6 @@ return {
         on_attach = on_attach,
       },
       astro = {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      },
-      vuels = {
         capabilities = capabilities,
         on_attach = on_attach,
       },

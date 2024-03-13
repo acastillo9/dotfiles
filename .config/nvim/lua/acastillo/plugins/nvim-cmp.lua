@@ -56,6 +56,18 @@ return {
           maxwidth = 50,
           ellipsis_char = "...",
           symbol_map = { Copilot = "" },
+          before = function(entry, vim_item)
+            vim_item.menu = "["
+              .. ({
+                nvim_lsp = "LSP",
+                copilot = "Copilot",
+                luasnip = "Luasnip",
+                buffer = "Buffer",
+                path = "Path",
+              })[entry.source.name]
+              .. "]"
+            return vim_item
+          end,
         }),
       },
     })
