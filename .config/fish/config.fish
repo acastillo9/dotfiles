@@ -21,7 +21,7 @@ set -gx PATH node_modules/.bin $PATH
 set -gx NVM_DIR (brew --prefix nvm)
 
 ### Java
-set -gx JAVA_HOME (brew --prefix java)
+set -gx JAVA_HOME (brew --prefix openjdk@17)
 
 ### Python
 set -gx PYENV_ROOT (pyenv root)
@@ -30,3 +30,8 @@ set -gx PATH $PYENV_ROOT/shims $PATH
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# Maven
+set --export MAVEN_HOME (brew --prefix maven)
+set --export CATALINA_OPTS "$CATALINA_OPTS -Xmx2g -XX:MaxMetaspaceSize=512m"
+set --export MAVEN_OPTS "-Xms2g -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Djava.awt.headless=true"
