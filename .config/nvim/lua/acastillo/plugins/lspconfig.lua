@@ -71,7 +71,7 @@ return {
     -- find a typescript to use for volar, try to use the one installed on the project otherwise use the global installed
     local util = require("lspconfig.util")
     local function get_typescript_server_path(root_dir)
-      local global_ts = "/Users/andrescastillo/.nvm/versions/node/v20.8.0/lib/node_modules/typescript/lib"
+      local global_ts = "/Users/andrescastillo/.local/share/nvm/v20.11.1/lib/node_modules/typescript/lib"
       local found_ts = ""
       local function check_dir(path)
         found_ts = util.path.join(path, "node_modules", "typescript", "lib")
