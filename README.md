@@ -1,3 +1,9 @@
+<img width="1728" alt="Screenshot 2024-03-22 at 6 23 03 PM" src="https://github.com/acastillo9/dotfiles/assets/12093565/20b9233d-8cae-4aa7-97c8-b7cf9b1f65fb">
+
+<img width="1728" alt="Screenshot 2024-03-22 at 6 23 36 PM" src="https://github.com/acastillo9/dotfiles/assets/12093565/2a8658ce-0281-424e-bfcd-bf8f562c4a81">
+
+<img width="1728" alt="Screenshot 2024-03-22 at 6 23 59 PM" src="https://github.com/acastillo9/dotfiles/assets/12093565/2daffd9e-6d4a-4210-a935-0ab37a5a9ede">
+
 # dotfiles/.config/nvim
 
 <a href="https://dotfyle.com/acastillo9/dotfiles-config-nvim"><img src="https://dotfyle.com/acastillo9/dotfiles-config-nvim/badges/plugins?style=flat" /></a>
