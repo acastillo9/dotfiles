@@ -31,7 +31,7 @@ return {
         local built_in_source = null_ls.builtins[null_ls_category][source]
         if built_in_source then
           local new_built_in_source = built_in_source
-          if built_in_source.name == "prettierd" then
+          if built_in_source.name == "prettierd" or built_in_source.name == "prettier" then
             new_built_in_source = built_in_source.with({
               extra_filetypes = { "astro" },
             })
