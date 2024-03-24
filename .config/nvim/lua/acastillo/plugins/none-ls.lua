@@ -5,6 +5,7 @@ return {
   },
   config = function()
     local null_ls = require("null-ls")
+    local null_ls_utils = require("null-ls.utils")
 
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
@@ -50,6 +51,7 @@ return {
     end
 
     null_ls.setup({
+      root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git", "package.json"),
       sources = sources,
       -- configure format on save
       on_attach = function(current_client, bufnr)
