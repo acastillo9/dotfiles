@@ -2,6 +2,12 @@ local keymap = vim.keymap
 
 vim.g.mapleader = " "
 
+-- Navigate vim panes better
+keymap.set("n", "<c-k>", ":wincmd k<CR>")
+keymap.set("n", "<c-j>", ":wincmd j<CR>")
+keymap.set("n", "<c-h>", ":wincmd h<CR>")
+keymap.set("n", "<c-l>", ":wincmd l<CR>")
+
 -- Do things without affecting the registers
 keymap.set("n", "x", '"_x')
 keymap.set("n", "<Leader>P", '"0P')

@@ -98,7 +98,18 @@ return {
       emmet_ls = {
         capabilities = capabilities,
         on_attach = on_attach,
-        filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte", "vue" },
+        filetypes = {
+          "html",
+          "typescriptreact",
+          "javascriptreact",
+          "css",
+          "sass",
+          "scss",
+          "less",
+          "svelte",
+          "vue",
+          "astro",
+        },
       },
       html = {
         capabilities = capabilities,
