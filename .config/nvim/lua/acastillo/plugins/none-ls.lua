@@ -34,7 +34,7 @@ return {
           local new_built_in_source = built_in_source
           if built_in_source.name == "prettierd" or built_in_source.name == "prettier" then
             new_built_in_source = built_in_source.with({
-              extra_filetypes = { "astro" },
+              extra_filetypes = { "astro", "svelte" },
             })
           end
           table.insert(sources, new_built_in_source)
@@ -64,7 +64,7 @@ return {
               vim.lsp.buf.format({
                 filter = function(client)
                   -- only use null-ls for formatting instead of lsp server
-                  return client.name == "null-ls" or client.name == "astro"
+                  return client.name == "null-ls" or client.name == "astro" or client.name == "svelte"
                 end,
                 bufnr = bufnr,
               })
