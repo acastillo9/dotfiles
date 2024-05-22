@@ -13,7 +13,7 @@ starship init fish | source
 
 set fish_greeting ""
 
-set -gx TERM xterm-256color
+set -gx TERM screen-256color
 
 set -gx EDITOR nvim
 
@@ -32,3 +32,6 @@ set --export PATH $BUN_INSTALL/bin $PATH
 set --export MAVEN_HOME (brew --prefix maven)
 set --export CATALINA_OPTS "$CATALINA_OPTS -Xmx2g -XX:MaxMetaspaceSize=512m"
 set --export MAVEN_OPTS "-Xms2g -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Djava.awt.headless=true"
+
+# Git
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'

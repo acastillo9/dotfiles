@@ -71,7 +71,7 @@ return {
     -- find a typescript to use for volar, try to use the one installed on the project otherwise use the global installed
     local util = require("lspconfig.util")
     local function get_typescript_server_path(root_dir)
-      local global_ts = "/Users/andrescastillo/.local/share/nvm/v20.11.1/lib/node_modules/typescript/lib"
+      local global_ts = "/opt/homebrew/lib/node_modules/typescript/lib"
       local found_ts = ""
       local function check_dir(path)
         found_ts = util.path.join(path, "node_modules", "typescript", "lib")
@@ -158,7 +158,7 @@ return {
           plugins = {
             {
               name = "@vue/typescript-plugin",
-              location = "/Users/andrescastillo/.local/share/nvm/v20.11.1/lib/node_modules/@vue/typescript-plugin",
+              location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
               languages = { "javascript", "typescript", "vue" },
             },
           },
