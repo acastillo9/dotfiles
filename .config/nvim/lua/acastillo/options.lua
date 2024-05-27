@@ -11,6 +11,7 @@ opt.cmdheight = 0 -- hide cmd if not used
 opt.laststatus = 3 -- global statusline
 opt.showcmdloc = "statusline"
 opt.spell = true
+opt.scrolloff = 8 -- Keep 8 lines above and below the cursor
 
 -- Line numbering settings
 opt.number = true -- Display absolute line number on the cursor line

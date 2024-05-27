@@ -13,7 +13,7 @@ starship init fish | source
 
 set fish_greeting ""
 
-set -gx TERM screen-256color
+set -gx TERM xterm-256color
 
 set -gx EDITOR nvim
 
