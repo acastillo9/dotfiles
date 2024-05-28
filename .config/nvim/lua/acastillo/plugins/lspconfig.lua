@@ -59,7 +59,7 @@ return {
       keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", opts)
     end
 
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     local signs = { Error = " ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
 
