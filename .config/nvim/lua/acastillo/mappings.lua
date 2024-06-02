@@ -39,3 +39,6 @@ keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" })
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
 keymap.set("n", "<leader>nn", ":set invrelativenumber<CR>", { desc = "Toggle relative numbers" })
 keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
+
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
