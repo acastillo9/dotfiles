@@ -9,6 +9,7 @@ return {
   config = function()
     local lspconfig = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local mason_registry = require("mason-registry")
     local keymap = vim.keymap
 
     local neoconf = require("neoconf")
@@ -85,6 +86,24 @@ return {
         return global_ts
       end
     end
+
+    -- for angular language server
+    local angularls_path = mason_registry.get_package("angular-language-server"):get_install_path()
+
+    local ngls_cmd = {
+      "ngserver",
+      "--stdio",
+      "--tsProbeLocations",
+      table.concat({
+        angularls_path,
+        vim.uv.cwd(),
+      }, ","),
+      "--ngProbeLocations",
+      table.concat({
+        angularls_path .. "/node_modules/@angular/language-server",
+        vim.uv.cwd(),
+      }, ","),
+    }
 
     local servers = {
       bashls = {
@@ -185,6 +204,18 @@ return {
         on_attach = on_attach,
       },
       astro = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      },
+      rust_analyzer = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      },
+      angularls = {
+        cmd = ngls_cmd,
+        on_new_config = function(new_config)
+          new_config.cmd = ngls_cmd
+        end,
         capabilities = capabilities,
         on_attach = on_attach,
       },
