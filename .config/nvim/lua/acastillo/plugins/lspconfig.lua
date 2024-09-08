@@ -146,6 +146,7 @@ return {
               library = {
                 vim.fn.expand("$VIMRUNTIME/lua"),
                 vim.fn.expand("$XDG_CONFIG_HOME") .. "/nvim/lua",
+                "${3rd}/luv/library",
               },
             },
           },
@@ -170,7 +171,7 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       },
-      tsserver = {
+      ts_ls = {
         capabilities = capabilities,
         on_attach = on_attach,
         init_options = {
