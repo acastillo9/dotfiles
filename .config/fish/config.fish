@@ -13,7 +13,7 @@ starship init fish | source
 
 set fish_greeting ""
 
-set -gx TERM xterm-256color
+set -gx TERM tmux-256color
 
 set -gx EDITOR nvim
 
@@ -23,6 +23,13 @@ set -gx JAVA_HOME (brew --prefix openjdk@17)
 ### Python
 set -gx PYENV_ROOT (pyenv root)
 set -gx PATH $PYENV_ROOT/shims $PATH
+
+# Initialize pyenv for Fish shell
+status --is-interactive; and source (pyenv init --path | psub)
+status --is-interactive; and source (pyenv init - | psub)
+
+# Initialize pyenv-virtualenv for Fish shell
+status --is-interactive; and source (pyenv virtualenv-init - | psub)
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
@@ -35,3 +42,7 @@ set --export MAVEN_OPTS "-Xms2g -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m
 
 # Git
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# Nvim
+alias vim="nvim"
+alias vi="nvim"
