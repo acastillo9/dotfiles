@@ -8,6 +8,14 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+    export TERM=xterm-256color
+fi
+
 # Plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -34,7 +42,7 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
 # History
-HISTSIZE=5000 
+HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase

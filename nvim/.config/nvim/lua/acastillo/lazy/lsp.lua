@@ -21,14 +21,8 @@ return {
       "force",
       {},
       vim.lsp.protocol.make_client_capabilities(),
-      cmp_lsp.default_capabilities())
-
-    local signs = { Error = " ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
-
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
+      cmp_lsp.default_capabilities()
+    )
 
     require("fidget").setup({})
     require("mason").setup()
@@ -36,7 +30,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "rust_analyzer",
-        "volar",
+        "vue_ls",
         "ts_ls",
         "cssls",
         "astro",
@@ -48,71 +42,106 @@ return {
         "tailwindcss",
         "typos_lsp"
       },
-      handlers = {
-        function(server_name)         -- default handler (optional)
-          require("lspconfig")[server_name].setup {
-            capabilities = capabilities
+    })
+
+    local lspconfig = require('lspconfig')
+
+    lspconfig.eslint.setup({
+      capabilities = capabilities,
+      on_attach = function(_, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          command = "EslintFixAll",
+        })
+      end,
+    })
+
+    lspconfig.lua_ls.setup({
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          runtime = { version = "Lua 5.1" },
+          diagnostics = {
+            globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
           }
-        end,
-        eslint = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.eslint.setup {
-            capabilities = capabilities,
-            on_attach = function(_, bufnr)
-              vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = bufnr,
-                command = "EslintFixAll",
-              })
-            end,
-          }
-        end,
-        ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.lua_ls.setup {
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                runtime = { version = "Lua 5.1" },
-                diagnostics = {
-                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                }
-              }
-            }
-          }
-        end,
-        ["ts_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.ts_ls.setup {
-            capabilities = capabilities,
-            init_options = {
-              plugins = {
-                {
-                  name = "@vue/typescript-plugin",
-                  location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
-                  languages = {
-                    "javascript",
-                    "javascriptreact",
-                    "javascript.jsx",
-                    "typescript",
-                    "typescriptreact",
-                    "typescript.tsx",
-                    "vue"
-                  },
-                },
-              },
-            },
-            filetypes = {
-              "javascript",
-              "javascriptreact",
-              "javascript.jsx",
-              "typescript",
-              "typescriptreact",
-              "typescript.tsx",
-              "vue",
-            },
-          }
-        end
+        }
       }
+    })
+
+    lspconfig.ts_ls.setup({
+      capabilities = capabilities,
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+      },
+    })
+
+    lspconfig.rust_analyzer.setup({
+      capabilities = capabilities,
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy",
+          },
+        },
+      },
+    })
+
+    lspconfig.vuels.setup({
+      capabilities = capabilities,
+      filetypes = { "vue" },
+    })
+
+    lspconfig.cssls.setup({
+      capabilities = capabilities,
+      filetypes = { "css", "scss", "less" },
+    })
+
+    lspconfig.astro.setup({
+      capabilities = capabilities,
+      filetypes = { "astro" },
+    })
+
+    lspconfig.emmet_ls.setup({
+      capabilities = capabilities,
+      filetypes = { "html", "css", "javascript", "typescript", "vue", "astro" },
+    })
+
+    lspconfig.html.setup({
+      capabilities = capabilities,
+      filetypes = { "html" },
+    })
+
+    lspconfig.jsonls.setup({
+      capabilities = capabilities,
+      filetypes = { "json", "jsonc" },
+    })
+
+    lspconfig.svelte.setup({
+      capabilities = capabilities,
+      filetypes = { "svelte" },
+    })
+
+    lspconfig.tailwindcss.setup({
+      capabilities = capabilities,
+      filetypes = { "html", "css", "javascript", "typescript", "vue", "astro" },
+    })
+
+    lspconfig.typos_lsp.setup({
+      capabilities = capabilities,
+      filetypes = { "markdown", "text" },
+      settings = {
+        typos = {
+          enable = true,
+          dictionaries = { "en_US", "es_ES" },
+          dictionary_path = "~/.config/nvim/dictionaries",
+        },
+      },
     })
 
     copilot_cmp.setup()
@@ -121,7 +150,7 @@ return {
     cmp.setup({
       snippet = {
         expand = function(args)
-          require('luasnip').lsp_expand(args.body)           -- For `luasnip` users.
+          require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         end,
       },
       mapping = cmp.mapping.preset.insert({
@@ -133,13 +162,29 @@ return {
       sources = cmp.config.sources({
         { name = "copilot" },
         { name = 'nvim_lsp' },
-        { name = 'luasnip' },         -- For luasnip users.
+        { name = 'luasnip' }, -- For luasnip users.
       }, {
         { name = 'buffer' },
       })
     })
 
+    local signs = { Error = " ", Warn = " ", Hint = "󰌵 ", Info = "󰋼 " }
     vim.diagnostic.config({
+      virtual_text = {
+        prefix = "●",
+        spacing = 2,
+      },
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = signs.Error,
+          [vim.diagnostic.severity.WARN] = signs.Warn,
+          [vim.diagnostic.severity.INFO] = signs.Info,
+          [vim.diagnostic.severity.HINT] = signs.Hint,
+        },
+      },
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
       float = {
         focusable = false,
         style = "minimal",
