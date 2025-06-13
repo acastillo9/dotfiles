@@ -1,5 +1,5 @@
 configuration{
-    modi: "run,window,combi";
+    modi: "drun,run,window";
     icon-theme: "Oranchelo";
     show-icons: true;
     terminal: "ghostty";
@@ -7,7 +7,7 @@ configuration{
     location: 0;
     disable-history: false;
     hide-scrollbar: true;
-    display-combi: "󰍹  All";
+    display-drun: "󰍹  Apps";
     display-run: " Run";
     display-window: " Window";
     sidebar-mode: true;
