@@ -38,8 +38,8 @@ zinit cdreplay -q
 
 # Keybingings
 bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+bindkey '^p' history-beginning-search-backward
+bindkey '^n' history-beginning-search-forward
 
 # History
 HISTSIZE=5000
