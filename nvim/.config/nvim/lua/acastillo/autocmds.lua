@@ -12,26 +12,31 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- remove any trailing space
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+local whitespace_skip = { markdown = true, diff = true, gitcommit = true, mail = true }
+vim.api.nvim_create_autocmd("BufWritePre", {
   group = acastillo_group,
-  pattern = "*",
-  command = [[%s/\s\+$//e]],
+  callback = function(ev)
+    if whitespace_skip[vim.bo[ev.buf].filetype] then return end
+    local view = vim.fn.winsaveview()
+    vim.cmd([[keeppatterns %s/\s\+$//e]])
+    vim.fn.winrestview(view)
+  end,
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
+local treesitter_fts = {
+  "typescript", "javascript", "typescriptreact", "javascriptreact",
+  "css", "html", "json", "lua", "markdown", "svelte",
+}
+vim.api.nvim_create_autocmd("FileType", {
   group = acastillo_group,
-  callback = function(e)
-    local opts = { buffer = e.buf }
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  end
+  pattern = treesitter_fts,
+  callback = function(ev)
+    if not pcall(vim.treesitter.start, ev.buf) then return end
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    local ok, ts = pcall(require, "nvim-treesitter")
+    if ok and ts.indentexpr then
+      vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
 })

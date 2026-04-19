@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Neovim runtime / state (in case this dir is ever used directly as ~/.config/nvim)
+shada/
+swap/
+backup/
+undo/
+spell/*.add.spl
+session/
+view/
+
+# Logs
+*.log

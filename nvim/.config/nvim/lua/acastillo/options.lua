@@ -2,7 +2,6 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
-vim.opt.guicursor = ""
 vim.opt.colorcolumn = "80"
 
 vim.opt.nu = true
@@ -32,3 +31,12 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+
+vim.opt.laststatus = 3
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
+vim.opt.winborder = "rounded"
+vim.opt.smoothscroll = true
+vim.opt.splitkeep = "screen"
+vim.opt.inccommand = "split"

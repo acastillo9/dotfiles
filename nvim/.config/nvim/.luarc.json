@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.workspace.useGitIgnore": true,
+  "Lua.workspace.maxPreload": 2000,
+  "Lua.workspace.preloadFileSize": 1000,
+  "Lua.workspace.library": [
+    "$VIMRUNTIME/lua",
+    "${3rd}/luv/library"
+  ],
+  "Lua.diagnostics.globals": [
+    "vim",
+    "Snacks"
+  ],
+  "Lua.format.enable": true,
+  "Lua.format.defaultConfig": {
+    "indent_style": "space",
+    "indent_size": "2"
+  }
+}

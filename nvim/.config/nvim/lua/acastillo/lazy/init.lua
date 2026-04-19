@@ -1,8 +1,15 @@
 return {
+  { "nvim-lua/plenary.nvim" },
+  { "eandrju/cellular-automaton.nvim" },
   {
-    "nvim-lua/plenary.nvim",
+    "echasnovski/mini.icons",
+    lazy = true,
+    opts = {},
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
   },
-  {
-    "eandrju/cellular-automaton.nvim"
-  }
 }
