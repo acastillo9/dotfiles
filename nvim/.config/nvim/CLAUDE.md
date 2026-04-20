@@ -47,7 +47,7 @@ Convention: to temporarily disable a plugin, rename the file with a `.disabled` 
 | `<c-/>` | Toggle terminal |
 | `<leader>ha` / `<leader>hl` | Harpoon add / list |
 | `<leader>h1-4` | Harpoon jump to slot |
-| `gd` / `gD` / `grr` / `gI` / `gy` | LSP go-to (via Snacks picker) |
+| `gd` / `gD` / `gR` / `gI` / `gy` | LSP go-to (via Snacks picker) |
 | `K` | LSP hover |
 | `<C-S>` | Signature help (insert mode, Neovim 0.11 default) |
 | `<leader>ca` | Code action |
