@@ -80,7 +80,7 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 #Aliases
-# alias ls='eza -lah --icons=always --group-directories-first --git --color=always'
+alias ls='eza -lah --icons=always --group-directories-first --git --color=always'
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
 alias brew-update="brew update && brew upgrade && brew cleanup -s && brew doctor"
