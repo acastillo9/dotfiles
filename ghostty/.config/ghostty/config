@@ -6,6 +6,6 @@ cursor-style = block
 mouse-scroll-multiplier = 2
 window-padding-balance = true
 window-save-state = always
-window-colorspace = "display-p3"
+window-colorspace = "srgb"
 copy-on-select = clipboard
 window-decoration = none

@@ -1,6 +1,4 @@
-export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/sbin:$PATH"
 
 # zinit plugin manager config
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -13,7 +11,6 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
 alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
 
 if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
@@ -35,15 +32,17 @@ zinit snippet OMZP::kubectl
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
+# Docker CLI completions
+fpath=($HOME/.docker/completions $fpath)
+
 # Plugins config
 autoload -U compinit && compinit
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# NVM
+# NVM (Arch package installs to /usr/share/nvm)
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 
 zinit cdreplay -q
 
@@ -69,9 +68,6 @@ bindkey -e
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # Completion styling
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -83,7 +79,7 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 alias ls='eza -lah --icons=always --group-directories-first --git --color=always'
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
-alias brew-update="brew update && brew upgrade && brew cleanup -s && brew doctor"
+alias pac-update="sudo pacman -Syu"
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -91,8 +87,3 @@ eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 eval "$(thefuck --alias fk)"
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/andres.castillo01/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions

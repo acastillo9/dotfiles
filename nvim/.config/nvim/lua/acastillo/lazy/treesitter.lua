@@ -7,7 +7,7 @@ return {
 
       nvim_treesitter.install({ "lua", "javascript", "typescript", "rust", "html", "css", "scss", "angular", "astro",
         "svelte",
-        "vue", "json", "jsdoc", "bash" })
+        "vue", "json", "jsdoc", "bash", "regex" })
     end
   },
   {

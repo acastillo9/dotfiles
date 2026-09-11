@@ -6,5 +6,6 @@
   "obsidian-plantuml",
   "obsidian-tasks-plugin",
   "obsidian-kanban",
-  "dataview"
+  "dataview",
+  "drawio-editor"
 ]

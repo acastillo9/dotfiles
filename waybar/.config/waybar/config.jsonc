@@ -1,0 +1,62 @@
+{
+    "layer": "top",
+    "position": "top",
+
+    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["network", "pulseaudio", "backlight", "battery", "clock", "tray"],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": "{id}"
+    },
+
+    "hyprland/window": {
+        "max-length": 50
+    },
+
+    "network": {
+        "format-wifi": "\uf1eb  {signalStrength}%",
+        "format-ethernet": "\uf0ac  {ifname}",
+        "format-disconnected": "\uf1eb  Down",
+        "tooltip-format": "{ifname} via {gwaddr}"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "\uf026  Muted",
+        "format-icons": {
+            "default": ["\uf026", "\uf027", "\uf028"]
+        }
+    },
+
+    "backlight": {
+        "format": "\uf185  {percent}%"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "\uf1e6  {capacity}%",
+        "format-plugged": "\uf1e6  {capacity}%",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+    },
+
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "\uf017  {:%a %d %b}",
+        "format": "\uf017  {:%H:%M}"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10,
+        "show-passive-items": true,
+        "icons": {
+            "spotify-client": "/opt/spotify/icons/spotify-linux-256.png"
+        }
+    }
+}
