@@ -9,7 +9,6 @@
   //   "hyprland/window"
   // ],
   "modules-right": [
-    "group/media",
     "cpu",
     "memory",
     "network",
@@ -18,6 +17,7 @@
     "backlight",
     "battery",
     "clock",
+    "group/media",
     "tray"
   ],
   "hyprland/workspaces": {

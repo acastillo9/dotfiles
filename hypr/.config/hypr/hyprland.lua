@@ -84,17 +84,22 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 ---- LOOK AND FEEL ----
 -----------------------
 
+local colors = require("themes.catppuccin-mocha")
+
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
   general = {
     gaps_in = 5,
     gaps_out = 10,
 
-    border_size = 1,
+    border_size = 2,
 
     col = {
-      active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-      inactive_border = "rgba(595959aa)",
+      active_border = {
+        colors = { "rgba(" .. colors.mauveAlpha .. "ee)", "rgba(" .. colors.blueAlpha .. "ee)" },
+        angle = 45,
+      },
+      inactive_border = "rgba(" .. colors.surface2Alpha .. "aa)",
     },
 
     -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -118,7 +123,7 @@ hl.config({
       enabled = true,
       range = 4,
       render_power = 3,
-      color = 0xee1a1a1a,
+      color = 0xee11111b,
     },
 
     blur = {
@@ -208,7 +213,7 @@ hl.config({
 hl.config({
   misc = {
     force_default_wallpaper = -1, -- Set to 0 or 1 to disable the anime mascot wallpapers
-    disable_hyprland_logo = false, -- If true disables the random hyprland logo / anime girl background. :(
+    disable_hyprland_logo = true, -- If true disables the random hyprland logo / anime girl background. :(
     disable_splash_rendering = true,
   },
 })
