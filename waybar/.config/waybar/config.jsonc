@@ -3,45 +3,67 @@
   "position": "top",
   "modules-left": [
     "hyprland/workspaces",
-    "hyprland/submap"
+    "cpu",
+    "memory",
+    "disk",
+    "group/media"
   ],
   // "modules-center": [
   //   "hyprland/window"
   // ],
   "modules-right": [
-    "cpu",
-    "memory",
+    "custom/language",
     "network",
     "bluetooth",
     "pulseaudio",
     "backlight",
+    "custom/power",
     "battery",
+    "idle_inhibitor",
     "clock",
-    "group/media",
-    "tray"
+    "tray",
+    "custom/notification",
+    "systemd-failed-units"
   ],
   "hyprland/workspaces": {
     "disable-scroll": true,
     "format": "{id}"
   },
   "hyprland/window": {
-    "max-length": 50
+    "max-length": 40
+  },
+  "custom/language": {
+    "exec": "~/.config/waybar/custom_modules/language/language.sh",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "hyprctl switchxkblayout all next",
+    "tooltip": true
   },
   "cpu": {
     "format": "\uf2db {usage}%",
     "format-icons": [
       "\uf2db"
     ],
+    "min-length": 6,
     "interval": 2,
     "on-click": "exec ghostty --title=btop -e btop"
   },
   "memory": {
     "format": "\uefc5 {percentage}%",
+    "min-length": 6,
     "interval": 2,
     "on-click": "exec ghostty --title=htop -e htop"
   },
+  "disk": {
+    "interval": 30,
+    "format": "\uf0c7 {free}",
+    "min-length": 6,
+    "path": "/",
+    "tooltip-format": "{specific_free} free of {specific_total} on {path}"
+  },
   "network": {
     "format-wifi": "\uf1eb {signalStrength}%",
+    "min-length": 6,
     "format-ethernet": "\uf0ac {ifname}",
     "format-disconnected": "\uf1eb Down",
     "tooltip-format": "{ifname} via {gwaddr}",
@@ -49,6 +71,7 @@
   },
   "bluetooth": {
     "format": " {icon}",
+    "min-length": 5,
     "format-connected": " {icon} {num_connections}",
     "format-disabled": "",
     "format-icons": {
@@ -62,6 +85,7 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
+    "min-length": 6,
     "format-muted": "\uf026 Muted",
     "format-icons": {
       "default": [
@@ -73,13 +97,32 @@
     "on-click": "pavucontrol"
   },
   "backlight": {
-    "format": "\uf185 {percent}%"
+    "format": "\uf185 {percent}%",
+    "min-length": 6
+  },
+  "custom/power": {
+    "exec": "~/.config/waybar/custom_modules/power/governor.sh",
+    "return-type": "json",
+    "interval": 5,
+    "on-click": "~/.config/waybar/custom_modules/power/governor-cycle.sh",
+    "tooltip": true
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰾪"
+    },
+    "tooltip": true,
+    "tooltip-format-activated": "Idle inhibitor: active",
+    "tooltip-format-deactivated": "Idle inhibitor: inactive"
   },
   "battery": {
     "states": {
       "warning": 30,
       "critical": 15
     },
+    "min-length": 6,
     "format": "{icon} {capacity}%",
     "format-charging": "\uf1e6 {capacity}%",
     "format-plugged": "\uf1e6 {capacity}%",
@@ -95,7 +138,13 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": "\uf017 {:%a %d %b}",
     "format": "\uf017 {:%H:%M}",
-    "on-click": "exec chromium --app=https://calendar.google.com"
+    "on-click": "exec chromium --app=https://calendar.google.com",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "today": "<span color='#cba6f7'><b><u>{}</u></b></span>"
+      }
+    }
   },
   "tray": {
     "icon-size": 18,
@@ -128,7 +177,32 @@
   "custom/media-time": {
     "exec": "~/.config/waybar/custom_modules/media/media-time.sh",
     "escape": true,
+    "min-length": 10,
     "interval": 1,
     "tooltip": false
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚",
+      "none": "󰂛",
+      "dnd-notification": "󰂚",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂚",
+      "inhibited-none": "󰂛",
+      "dnd-inhibited-notification": "󰂚",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "systemd-failed-units": {
+    "hide-on-empty": true,
+    "format": "✗ {nr_failed}"
   }
 }

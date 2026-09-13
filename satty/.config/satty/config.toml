@@ -1,0 +1,46 @@
+# Satty config — Catppuccin Mocha
+
+[general]
+fullscreen = true
+floating-hack = true
+auto-copy = false
+early-exit = ["copy", "save"]
+actions-on-enter = ["save-to-clipboard", "save-to-file"]
+corner-roundness = 12
+initial-tool = "brush"
+copy-command = "wl-copy"
+annotation-size-factor = 2
+output-filename = "~/Pictures/Screenshots/satty-%Y-%m-%d_%H:%M:%S.png"
+save-after-copy = false
+default-hide-toolbars = false
+focus-toggles-toolbars = false
+default-fill-shapes = false
+default-round-caps = true
+primary-highlighter = "block"
+no-window-decoration = true
+notification-thumbnail = "screenshot"
+
+[font]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[color-palette]
+palette = [
+    "#f38ba8ff",
+    "#fab387ff",
+    "#f9e2afff",
+    "#a6e3a1ff",
+    "#94e2d5ff",
+    "#89dcebff",
+    "#89b4faff",
+    "#cba6f7ff",
+    "#f5c2e7ff",
+    "#cdd6f4ff",
+]
+
+custom = [
+    "#1e1e2e",
+    "#313244",
+    "#585b70",
+    "#a6adc8",
+]

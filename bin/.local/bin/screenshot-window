@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p ~/Pictures/Screenshots
+grim -t ppm -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - \
+  | satty -f - --fullscreen --output-filename ~/Pictures/Screenshots/"satty-%Y-%m-%d_%H:%M:%S.png"

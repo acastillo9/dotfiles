@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p ~/Pictures/Screenshots
+grim -t ppm -g "$(slurp -d -b 1e1e2ecc -c cba6f7)" - \
+  | satty -f - --fullscreen --output-filename ~/Pictures/Screenshots/"satty-%Y-%m-%d_%H:%M:%S.png"

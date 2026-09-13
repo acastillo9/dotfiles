@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+entry=$(cliphist list | rofi -dmenu -theme catppuccin-mocha -p 'Clipboard')
+[ -n "$entry" ] || exit 0
+
+id="${entry%%$'\t'*}"
+cliphist decode "$id" | wl-copy
+
+class=$(hyprctl activewindow -j | jq -r '.class // empty')
+
+if [[ "$class" == *ghostty* ]]; then
+  # ghostty binds paste to ctrl+shift+v by default (ctrl+v is a VT char)
+  sleep 0.5
+  wtype -M ctrl -M shift v -m ctrl -m shift
+else
+  sleep 0.5
+  wtype -M ctrl v -m ctrl
+fi

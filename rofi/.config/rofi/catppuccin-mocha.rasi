@@ -1,7 +1,8 @@
 * {
     bg-col:  #1e1e2e;
     bg-col-light: #1e1e2e;
-    border-col: #1e1e2e;
+    window-bg: rgba(30, 30, 46, 0.85);
+    border-col: #45475a;
     selected-col: #1e1e2e;
     blue: #89b4fa;
     fg-col: #cdd6f4;
@@ -18,19 +19,20 @@ element-text, element-icon , mode-switcher {
 
 window {
     height: 500px;
-    border: 0px;
+    border: 2px;
+    border-radius: 12px;
     padding: 16px;
     border-color: @border-col;
-    background-color: @bg-col;
+    background-color: @window-bg;
 }
 
 mainbox {
-    background-color: @bg-col;
+    background-color: transparent;
 }
 
 inputbar {
     children: [prompt,entry];
-    background-color: @bg-col;
+    background-color: transparent;
     border-radius: 5px;
     padding: 0px;
     margin: 0px 0px 16px 0px;
@@ -53,7 +55,7 @@ entry {
     padding: 3px 0px;
     margin: 0px 0px 0px 0px;
     text-color: @fg-col;
-    background-color: @bg-col;
+    background-color: transparent;
 }
 
 listview {
@@ -62,13 +64,13 @@ listview {
     margin: 0px;
     columns: 1;
     lines: 10;
-    background-color: @bg-col;
+    background-color: transparent;
 }
 
 element {
     padding: 0px;
     margin: 0px 0px 5px 0px;
-    background-color: @bg-col;
+    background-color: transparent;
     text-color: @fg-col  ;
 }
 

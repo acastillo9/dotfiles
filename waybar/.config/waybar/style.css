@@ -27,7 +27,7 @@ tooltip label {
 #workspaces {
   background-color: @surface0;
   border-radius: 1rem;
-  margin: 5px;
+  margin: 5px 0;
   margin-left: 1rem;
 }
 
@@ -54,7 +54,7 @@ tooltip label {
   color: @red;
 }
 
-/* ---- Center: window / submap ---- */
+/* ---- Center: window ---- */
 
 #window {
   background-color: @surface0;
@@ -64,15 +64,33 @@ tooltip label {
   color: @mauve;
 }
 
-#submap {
+/* ---- Left: machine stats pill ---- */
+
+#cpu,
+#memory,
+#disk {
   background-color: @surface0;
-  border-radius: 1rem;
-  padding: 0 0.5rem;
-  margin: 5px;
-  color: @peach;
+  padding: 0.5rem 0.6rem;
+  margin: 5px 0;
 }
 
-/* ---- Left: media ---- */
+#cpu {
+  color: @lavender;
+  border-radius: 1rem 0 0 1rem;
+  margin-left: 8px;
+}
+
+#memory {
+  color: @pink;
+  border-radius: 0;
+}
+
+#disk {
+  color: @sky;
+  border-radius: 0 1rem 1rem 0;
+}
+
+/* ---- Media ---- */
 
 #custom-media-animation,
 #custom-media-now-playing,
@@ -85,7 +103,7 @@ tooltip label {
 #custom-media-animation {
   color: @mauve;
   border-radius: 1rem 0 0 1rem;
-  margin-left: 5px;
+  margin-left: 8px;
   min-width: 1.8rem;
 }
 
@@ -103,28 +121,24 @@ tooltip label {
 
 /* ---- Right: contiguous module pill group ---- */
 
-#cpu,
-#memory,
+#custom-language,
 #network,
 #bluetooth,
 #pulseaudio,
 #backlight,
+#custom-power,
 #battery,
+#idle_inhibitor,
 #clock {
   background-color: @surface0;
   padding: 0.5rem 0.6rem;
   margin: 5px 0;
 }
 
-#cpu {
-  color: @lavender;
+#custom-language {
+  color: @rosewater;
   border-radius: 1rem 0 0 1rem;
   margin-left: 1rem;
-}
-
-#memory {
-  color: @pink;
-  border-radius: 0;
 }
 
 #network {
@@ -147,9 +161,23 @@ tooltip label {
   border-radius: 0;
 }
 
+#custom-power {
+  color: @peach;
+  border-radius: 0;
+}
+
 #battery {
   color: @green;
   border-radius: 0;
+}
+
+#idle_inhibitor {
+  color: @subtext1;
+  border-radius: 0;
+}
+
+#idle_inhibitor.activated {
+  color: @green;
 }
 
 #battery.charging {
@@ -167,15 +195,15 @@ tooltip label {
 #clock {
   color: @blue;
   border-radius: 0 1rem 1rem 0;
-  margin-right: 1rem;
+  margin-right: 8px;
 }
 
 #tray {
   background-color: @surface0;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
-  margin: 5px;
-  margin-right: 1rem;
+  margin: 5px 0;
+  margin-right: 8px;
 }
 
 #tray>.needs-attention {
@@ -184,4 +212,26 @@ tooltip label {
 
 #tray>.passive {
   -gtk-icon-effect: dim;
+}
+
+/* ---- Right: notifications ---- */
+
+#custom-notification {
+  background-color: @surface0;
+  border-radius: 1rem;
+  padding: 0.5rem 0.8rem;
+  margin: 5px 0;
+  color: @flamingo;
+  margin-right: 1rem;
+}
+
+/* ---- Right: failed systemd units (hidden when empty) ---- */
+
+#systemd-failed-units {
+  background-color: @surface0;
+  color: @red;
+  border-radius: 1rem;
+  padding: 0.5rem 0.8rem;
+  margin: 5px 0;
+  margin-right: 1rem;
 }

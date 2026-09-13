@@ -50,6 +50,9 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("systemctl --user enable --now hyprpaper.service")
   hl.exec_cmd("hypridle")
   hl.exec_cmd("playerctld daemon")
+  hl.exec_cmd("swayosd-server")
+  hl.exec_cmd("wl-paste --type text --watch cliphist store")
+  hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)
 
 -------------------------------
@@ -127,9 +130,9 @@ hl.config({
     },
 
     blur = {
-      enabled = false,
-      size = 3,
-      passes = 1,
+      enabled = true,
+      size = 6,
+      passes = 2,
       vibrancy = 0.1696,
     },
   },
@@ -235,12 +238,20 @@ hl.config({
 
     follow_mouse = 1,
 
+    focus_on_close = 3, -- 3 = focus the previously focused window
+
     sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
     touchpad = {
       natural_scroll = false,
       scroll_factor = 0.2,
     },
+  },
+})
+
+hl.config({
+  cursor = {
+    inactive_timeout = 3, -- Hide the cursor after 3s of no movement
   },
 })
 
@@ -268,10 +279,7 @@ local secondMod = "SUPER + SHIFT"
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(
-  secondMod .. " + M",
-  hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
-)
+hl.bind(secondMod .. " + M", hl.dsp.exec_cmd("wlogout"))
 hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
@@ -319,32 +327,41 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
   "XF86AudioRaiseVolume",
-  hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+  hl.dsp.exec_cmd("swayosd-client --output-volume raise"),
   { locked = true, repeating = true }
 )
 hl.bind(
   "XF86AudioLowerVolume",
-  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+  hl.dsp.exec_cmd("swayosd-client --output-volume lower"),
   { locked = true, repeating = true }
 )
 hl.bind(
   "XF86AudioMute",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+  hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
   { locked = true, repeating = true }
 )
 hl.bind(
   "XF86AudioMicMute",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+  hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"),
   { locked = true, repeating = true }
 )
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+-- Screenshots: Print = region, SHIFT+Print = fullscreen, CTRL+Print = active window
+hl.bind("Print", hl.dsp.exec_cmd("$HOME/.local/bin/screenshot-region"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("$HOME/.local/bin/screenshot-full"))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("$HOME/.local/bin/screenshot-window"))
+
+-- Clipboard history and color picker
+hl.bind(secondMod .. " + V", hl.dsp.exec_cmd("$HOME/.local/bin/clipboard-pick"))
+hl.bind(secondMod .. " + P", hl.dsp.exec_cmd("hyprpicker -a -f hex"))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -387,6 +404,14 @@ hl.window_rule({
 -- })
 -- overlayLayerRule:set_enabled(false)
 
+-- Blur whatever is behind rofi so it visually separates from the terminal
+hl.layer_rule({
+  name = "blur-rofi",
+  match = { namespace = "rofi" },
+
+  blur = true,
+})
+
 -- Hyprland-run windowrule
 hl.window_rule({
   name = "move-hyprland-run",
@@ -394,4 +419,63 @@ hl.window_rule({
 
   move = "20 monitor_h-120",
   float = true,
+})
+
+-- Satty annotation window
+hl.window_rule({
+  name = "satty-float",
+  match = { class = "org.satty.satty" },
+
+  float = true,
+})
+
+-- Open new windows behind a fullscreen window instead of replacing it
+-- 0 = new window opens behind, fullscreen keeps focus; 1 = takes over; 2 = unfullscreen
+hl.config({
+  misc = {
+    on_focus_under_fullscreen = 0,
+  },
+})
+
+-- Don't lock/suspend while something is fullscreen (video, presentations)
+hl.window_rule({
+  name = "idle-inhibit-fullscreen",
+  match = { fullscreen = true },
+
+  idle_inhibit = "fullscreen",
+})
+
+-- Pin commonly used apps to their own workspaces
+hl.window_rule({
+  name = "spotify-workspace",
+  match = { class = "^(spotify|Spotify)$" },
+
+  workspace = "10",
+})
+
+hl.window_rule({
+  name = "obsidian-workspace",
+  match = { class = "obsidian" },
+
+  workspace = "9",
+})
+
+-- Float Chromium picture-in-picture on top of everything
+hl.window_rule({
+  name = "chromium-pip",
+  match = { class = "chromium", title = "^Picture in picture$" },
+
+  float = true,
+  pin = true,
+  size = "640 360",
+  move = "75% 75%",
+})
+
+-- Float common file dialogs
+hl.window_rule({
+  name = "float-file-dialogs",
+  match = { title = "^(Open|Save|Export|Import|Choose)" },
+
+  float = true,
+  size = "800 600",
 })
