@@ -48,6 +48,8 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
   hl.exec_cmd("systemctl --user enable --now hyprpaper.service")
+  hl.exec_cmd("hypridle")
+  hl.exec_cmd("playerctld daemon")
 end)
 
 -------------------------------
@@ -265,6 +267,7 @@ hl.bind(
   secondMod .. " + M",
   hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
+hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))

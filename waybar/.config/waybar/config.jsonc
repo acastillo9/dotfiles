@@ -1,62 +1,134 @@
 {
-    "layer": "top",
-    "position": "top",
-
-    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["network", "pulseaudio", "backlight", "battery", "clock", "tray"],
-
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "format": "{id}"
+  "layer": "top",
+  "position": "top",
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/submap"
+  ],
+  // "modules-center": [
+  //   "hyprland/window"
+  // ],
+  "modules-right": [
+    "group/media",
+    "cpu",
+    "memory",
+    "network",
+    "bluetooth",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "clock",
+    "tray"
+  ],
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "format": "{id}"
+  },
+  "hyprland/window": {
+    "max-length": 50
+  },
+  "cpu": {
+    "format": "\uf2db {usage}%",
+    "format-icons": [
+      "\uf2db"
+    ],
+    "interval": 2,
+    "on-click": "exec ghostty --title=btop -e btop"
+  },
+  "memory": {
+    "format": "\uefc5 {percentage}%",
+    "interval": 2,
+    "on-click": "exec ghostty --title=htop -e htop"
+  },
+  "network": {
+    "format-wifi": "\uf1eb {signalStrength}%",
+    "format-ethernet": "\uf0ac {ifname}",
+    "format-disconnected": "\uf1eb Down",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "on-click": "exec nmrs"
+  },
+  "bluetooth": {
+    "format": " {icon}",
+    "format-connected": " {icon} {num_connections}",
+    "format-disabled": "",
+    "format-icons": {
+      "enabled": "\uf294",
+      "disabled": ""
     },
-
-    "hyprland/window": {
-        "max-length": 50
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "exec ghostty --title=bluetui -e bluetui"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "\uf026 Muted",
+    "format-icons": {
+      "default": [
+        "\uf026",
+        "\uf027",
+        "\uf028"
+      ]
     },
-
-    "network": {
-        "format-wifi": "\uf1eb  {signalStrength}%",
-        "format-ethernet": "\uf0ac  {ifname}",
-        "format-disconnected": "\uf1eb  Down",
-        "tooltip-format": "{ifname} via {gwaddr}"
+    "on-click": "pavucontrol"
+  },
+  "backlight": {
+    "format": "\uf185 {percent}%"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
     },
-
-    "pulseaudio": {
-        "format": "{icon}  {volume}%",
-        "format-muted": "\uf026  Muted",
-        "format-icons": {
-            "default": ["\uf026", "\uf027", "\uf028"]
-        }
-    },
-
-    "backlight": {
-        "format": "\uf185  {percent}%"
-    },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon}  {capacity}%",
-        "format-charging": "\uf1e6  {capacity}%",
-        "format-plugged": "\uf1e6  {capacity}%",
-        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
-    },
-
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "\uf017  {:%a %d %b}",
-        "format": "\uf017  {:%H:%M}"
-    },
-
-    "tray": {
-        "icon-size": 18,
-        "spacing": 10,
-        "show-passive-items": true,
-        "icons": {
-            "spotify-client": "/opt/spotify/icons/spotify-linux-256.png"
-        }
+    "format": "{icon} {capacity}%",
+    "format-charging": "\uf1e6 {capacity}%",
+    "format-plugged": "\uf1e6 {capacity}%",
+    "format-icons": [
+      "\uf244",
+      "\uf243",
+      "\uf242",
+      "\uf241",
+      "\uf240"
+    ]
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "\uf017 {:%a %d %b}",
+    "format": "\uf017 {:%H:%M}",
+    "on-click": "exec chromium --app=https://calendar.google.com"
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10,
+    "show-passive-items": true,
+    "icons": {
+      "spotify-client": "/opt/spotify/icons/spotify-linux-256.png"
     }
+  },
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/media-animation",
+      "custom/media-now-playing",
+      "custom/media-time"
+    ]
+  },
+  "custom/media-now-playing": {
+    "exec": "~/.config/waybar/custom_modules/media/media-now-playing.sh",
+    "escape": true,
+    "tooltip": false,
+    "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl previous",
+    "on-click-right": "playerctl next"
+  },
+  "custom/media-animation": {
+    "exec": "~/.config/waybar/custom_modules/media/media-animation.sh",
+    "tooltip": false
+  },
+  "custom/media-time": {
+    "exec": "~/.config/waybar/custom_modules/media/media-time.sh",
+    "escape": true,
+    "interval": 1,
+    "tooltip": false
+  }
 }

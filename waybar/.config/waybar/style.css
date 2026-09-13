@@ -72,22 +72,68 @@ tooltip label {
   color: @peach;
 }
 
+/* ---- Left: media ---- */
+
+#custom-media-animation,
+#custom-media-now-playing,
+#custom-media-time {
+  background-color: @surface0;
+  padding: 0.5rem 0.6rem;
+  margin: 5px 0;
+}
+
+#custom-media-animation {
+  color: @mauve;
+  border-radius: 1rem 0 0 1rem;
+  margin-left: 5px;
+  min-width: 1.8rem;
+}
+
+#custom-media-now-playing {
+  color: @lavender;
+  border-radius: 0;
+  padding-left: 0;
+}
+
+#custom-media-time {
+  color: @subtext0;
+  border-radius: 0 1rem 1rem 0;
+}
+
 /* ---- Right: contiguous module pill group ---- */
 
+#cpu,
+#memory,
 #network,
+#bluetooth,
 #pulseaudio,
 #backlight,
 #battery,
 #clock {
   background-color: @surface0;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.6rem;
   margin: 5px 0;
+}
+
+#cpu {
+  color: @lavender;
+  border-radius: 1rem 0 0 1rem;
+  margin-left: 1rem;
+}
+
+#memory {
+  color: @pink;
+  border-radius: 0;
 }
 
 #network {
   color: @teal;
-  border-radius: 1rem 0 0 1rem;
-  margin-left: 1rem;
+  border-radius: 0;
+}
+
+#bluetooth {
+  color: @sapphire;
+  border-radius: 0;
 }
 
 #pulseaudio {
