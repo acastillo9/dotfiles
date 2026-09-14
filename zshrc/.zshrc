@@ -83,6 +83,7 @@ alias pac-update="sudo pacman -Syu"
 
 # Shell integrations
 eval "$(fzf --zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
